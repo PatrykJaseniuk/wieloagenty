@@ -15,26 +15,34 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { SilnikForm } from './SilnikForm';
 import Review from './Review';
 import { PodwozieForm } from './PodwozieForm';
-import { Parametry } from '../../Data/data';
+import { Parametry, ParametryOgolne } from '../../Data/data';
 import { NadwozieForm } from './NadwozieForm';
 import { CenaForm } from './Cena.Form';
 import { WynikWyszukiwan } from '../wyniki';
+import { Formularz } from './Formularz';
+import Review2 from './Review2';
 
 
-const steps = ['Silnik', 'Podwozie', 'Nadwozie', 'cena', 'Podsumowanie'];
+const steps = ['Parametry', 'cena', 'Podsumowanie'];
 
-function getStepContent(step: number, data: Parametry, setData: React.Dispatch<React.SetStateAction<Parametry>>) {
+function getStepContent(step: number, parametryOgolne: ParametryOgolne, set: React.Dispatch<React.SetStateAction<ParametryOgolne>>) {
     switch (step) {
+        // case 0:
+        //     return <SilnikForm data={data} setData={setData} />;
+        // case 1:
+        //     return <PodwozieForm data={data} setData={setData} />;
+        // case 2:
+        //     return <NadwozieForm data={data} setData={setData} />;
+        // case 3:
+        //     return <CenaForm data={data} setData={setData} />
+        // case 4:
+        //     return <Review data={data} />;
         case 0:
-            return <SilnikForm data={data} setData={setData} />;
+            return <Formularz parametryOgolne={parametryOgolne} set={set} />
         case 1:
-            return <PodwozieForm data={data} setData={setData} />;
+            return <CenaForm parametryOgolne={parametryOgolne} setData={set} />
         case 2:
-            return <NadwozieForm data={data} setData={setData} />;
-        case 3:
-            return <CenaForm data={data} setData={setData} />
-        case 4:
-            return <Review data={data} />;
+            return <Review2 parametryOgolne={parametryOgolne} />
         default:
             throw new Error('Unknown step');
     }
@@ -43,13 +51,10 @@ function getStepContent(step: number, data: Parametry, setData: React.Dispatch<R
 const theme = createTheme();
 
 
-let newData: Parametry;
-
-
 export default function Checkout() {
     const [activeStep, setActiveStep] = React.useState(0);
-    const [parametry, setData] = React.useState<Parametry>(new Parametry);
-    const [cos, setCos] = React.useState({ cos: 1 });
+    const [parametry, setData] = React.useState<Parametry>(new Parametry('nazwa'));
+    const [parametryOgolne, setParametryOgolne] = React.useState<ParametryOgolne>(new ParametryOgolne())
 
     const handleNext = () => {
         setActiveStep(activeStep + 1);
@@ -92,11 +97,11 @@ export default function Checkout() {
                     <React.Fragment>
                         {activeStep === steps.length ? (
                             <React.Fragment>
-                                <WynikWyszukiwan parametry={parametry} />
+                                <WynikWyszukiwan parametryOgolne={parametryOgolne} />
                             </React.Fragment>
                         ) : (
                             <React.Fragment>
-                                {getStepContent(activeStep, parametry, setData)}
+                                {getStepContent(activeStep, parametryOgolne, setParametryOgolne)}
                                 <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                                     {activeStep !== 0 && (
                                         <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
@@ -116,8 +121,8 @@ export default function Checkout() {
                     </React.Fragment>
                 </Paper>
             </Container>
-            <WynikWyszukiwan parametry={parametry} />
-            <Review data={parametry} />
+            <WynikWyszukiwan parametryOgolne={parametryOgolne} />
+            <Review2 parametryOgolne={parametryOgolne} />
         </ThemeProvider>
     );
 }

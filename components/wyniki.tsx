@@ -1,14 +1,15 @@
 import { Accordion, AccordionDetails, AccordionSummary, Grid } from "@mui/material";
 import Typography from "@mui/material/Typography/Typography";
 import React from "react";
-import { Parametry, Samochod } from "../Data/data";
+import { Parametry, ParametryOgolne, Samochod } from "../Data/data";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Review from "./checkout/Review";
-import { wyszukaj } from "../SystemWieloagentowy/SystemWieloAgemtowy";
+import { generujParametrySzczegolowe, wyszukaj } from "../SystemWieloagentowy/SystemWieloAgemtowy";
 
-export function WynikWyszukiwan(props: { parametry: Parametry }) {
+export function WynikWyszukiwan(props: { parametryOgolne: ParametryOgolne }) {
 
-    let samochody = wyszukaj(props.parametry)
+    let samochody = wyszukaj(props.parametryOgolne)
+    let parametrySzczegolowe = generujParametrySzczegolowe(props.parametryOgolne)
 
     return (
         <React.Fragment>
@@ -20,14 +21,15 @@ export function WynikWyszukiwan(props: { parametry: Parametry }) {
                             aria-controls="panel1a-content"
                             id="panel1a-header"
                         >
-                            <Typography>{samochod.nazwa}</Typography>
+                            <Typography>{samochod.samochod.nazwa} roznica: {samochod.roznica}</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <Review data={samochod.parametry} />
+                            <Review data={samochod.samochod.parametry} />
                         </AccordionDetails>
                     </Accordion>
                 )
             })}
+            <Review data={parametrySzczegolowe} />
         </React.Fragment>
     )
 }

@@ -37,4 +37,10 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 # Kolejne fazy/iteracje prokjektu:
 
-## 1 ustalenie wejsc i wyjsc systemu i reprezentacja tego jako gui za pomoaca material ui 
+## 1 ustalenie wejsc i wyjsc systemu i reprezentacja tego jako gui za pomoaca material ui
+
+→Wejściem systemu bedą ogólne(nie precyzyjne) `parametry` pojazdu i `priorytety` tych parametrów
+
+←wyjsciem systemu bedzie: posortowana lista produktów 
+
+## 2 przetworzenie ogólnych parametrów na bardziej szczegółowe 

@@ -4,10 +4,10 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { Parametry } from '../../Data/data';
+import { Parametry, ParametryOgolne } from '../../Data/data';
 import { Input, MenuItem, Slider, SpeedDialIconClassKey } from '@mui/material';
 
-export function CenaForm(props: { data: Parametry, setData: React.Dispatch<React.SetStateAction<Parametry>> }) {
+export function CenaForm(props: { parametryOgolne: ParametryOgolne, setData: React.Dispatch<React.SetStateAction<ParametryOgolne>> }) {
     return (
         <React.Fragment>
             <Typography variant="h6" gutterBottom>
@@ -16,27 +16,27 @@ export function CenaForm(props: { data: Parametry, setData: React.Dispatch<React
             <Grid container spacing={3}>
                 <Grid item xs={12} sm={6}>
                     <Slider
-                        max={props.data.cena.max}
-                        min={props.data.cena.min}
-                        value={props.data.cena.wartosc}
+                        max={props.parametryOgolne.cena.max}
+                        min={props.parametryOgolne.cena.min}
+                        value={props.parametryOgolne.cena.wartosc}
                         onChange={(_, value) => {
-                            props.data.cena.wartosc = value as number
-                            props.setData({ ...props.data }); //żeby stan sie aktualizowal musze jako argument do setData przeslac '{ ...props.data }' a nie samo 'props.data'
+                            props.parametryOgolne.cena.wartosc = value as number
+                            props.setData({ ...props.parametryOgolne }); //żeby stan sie aktualizowal musze jako argument do setData przeslac '{ ...props.data }' a nie samo 'props.data'
                         }
                         }
                         valueLabelDisplay="auto"
                     />
                     <Input
-                        value={props.data.cena.wartosc}
+                        value={props.parametryOgolne.cena.wartosc}
                         size="small"
                         onChange={(event) => {
-                            props.data.cena.wartosc = Number.parseInt(event.target.value)
-                            props.setData({ ...props.data }); //żeby stan sie aktualizowal musze jako argument do setData przeslac '{ ...props.data }' a nie samo 'props.data'
+                            props.parametryOgolne.cena.wartosc = Number.parseInt(event.target.value)
+                            props.setData({ ...props.parametryOgolne }); //żeby stan sie aktualizowal musze jako argument do setData przeslac '{ ...props.data }' a nie samo 'props.data'
                         }}
                         inputProps={{
                             step: 10,
-                            min: props.data.cena.min,
-                            max: props.data.cena.max,
+                            min: props.parametryOgolne.cena.min,
+                            max: props.parametryOgolne.cena.max,
                             type: 'number',
                             'aria-labelledby': 'input-slider',
                         }}
