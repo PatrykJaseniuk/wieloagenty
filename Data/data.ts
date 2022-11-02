@@ -89,7 +89,7 @@ export class Parametry {
             let pojemnosc: Zakres = { min: 50, max: 6000, wartosc: gen() * 5050 + 50, priorytet: 1 }
             this.silnik = new SilnikSpalinowy(pojemnosc, gen() > 0.5 ? 'benzyna' : 'ropa', momentSily, moc)
         }
-        this.cena = { min: 10, max: 10000000, wartosc: 30000, priorytet: 1 }
+        this.cena = { min: 10, max: 1000000, wartosc: gen() * 1000000, priorytet: 1 }
 
         // this.nadwozie = {
         //     kolor: { wartosc: 'czerwony', priorytet: 1 },

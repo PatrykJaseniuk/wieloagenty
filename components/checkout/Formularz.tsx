@@ -52,11 +52,12 @@ function Parametr(props: { parametryOgolne: ParametryOgolne, nazwa: string, set:
                 <Grid item xs={6}>
                     <Typography>priorytet :</Typography>
                     <Slider
-                        max={5}
+                        max={1}
+                        step={0.01}
                         min={0}
                         value={(props.parametryOgolne as any)[props.nazwa].priorytet}
                         onChange={(_, value) => {
-                            value = (props.parametryOgolne as any)[props.nazwa].priorytet = value as number
+                            value = (props.parametryOgolne as any)[props.nazwa].priorytet = (value as number)
                             props.set({ ...props.parametryOgolne }); //żeby stan sie aktualizowal musze jako argument do setData przeslac '{ ...props.data }' a nie samo 'props.data'
                         }
                         }
