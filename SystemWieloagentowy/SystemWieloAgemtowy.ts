@@ -7,7 +7,7 @@ export function wyszukaj(parametryOgolne: ParametryOgolne): SamochodDopasowanie[
 
 
     let sprzedawcy = tworzSprzedawcow(5)
-    let kupcy = tworzKupcow(5, parametrySzczegolowe)
+    let kupcy = tworzKupcow(20, parametrySzczegolowe)
 
     pozyskiwanieOfert(kupcy, sprzedawcy) //side effect
 
@@ -36,7 +36,7 @@ export function generujParametrySzczegolowe(parametryOgolne: ParametryOgolne): P
     pod.przeswit.priorytet = parametryOgolne.uterenowienie.priorytet;
     pod.rozmiarKol.wartosc = parametryOgolne.uterenowienie.wartosc * 10;
     pod.rozmiarKol.priorytet = parametryOgolne.uterenowienie.priorytet;
-    pod.skretnaTylnaOs.wartosc = true;
+    pod.skretnaTylnaOs.wartosc = parametryOgolne.manewrowalnosc.wartosc>3;
     pod.skretnaTylnaOs.priorytet = parametryOgolne.manewrowalnosc.priorytet;
 
     let wyznacznikTypuSilnika: number = 0;
@@ -76,6 +76,9 @@ export function generujParametrySzczegolowe(parametryOgolne: ParametryOgolne): P
 
         parametrySzczegolowe.silnik = new SilnikElektryczny(500, pojemnoscBaterii, momentSily, moc);
     }
+
+    parametrySzczegolowe.cena = parametryOgolne.cena;
+
     return parametrySzczegolowe;
 }
 
@@ -139,8 +142,8 @@ class Kupiec {
         roznica += Math.abs(sa.moc.wartosc - sw.moc.wartosc) * sw.moc.priorytet
         roznica += Math.abs(sa.momentSily.wartosc - sw.momentSily.wartosc) * sw.momentSily.priorytet
 
-        let pojemnocsBateriiA = 300;
-        let pojemnoscBatriiP = 300;
+        let pojemnocsBateriiA = 800;
+        let pojemnoscBatriiP = 800;
         let pr = 1;
         if (sa instanceof SilnikElektryczny) {
             pojemnocsBateriiA = sa.pojemnoscBaterii.wartosc;
@@ -169,6 +172,7 @@ class Kupiec {
         roznica += na.czyMaradio.wartosc == nw.czyMaradio.wartosc ? 0 : 50 * nw.czyMaradio.priorytet;
         roznica += na.kolor.wartosc == nw.kolor.wartosc ? 0 : 50 * nw.kolor.priorytet;
 
+        // roznica += Math.abs(parametry.cena.wartosc - wyszukiwaneParametry.cena.wartosc) * 0.0001
 
         return roznica;
     }
@@ -189,9 +193,9 @@ class Kupiec {
 class Sprzedawca {
     static i = 0;
     getOferty() {
-        Sprzedawca.i = (Sprzedawca.i + 1) % this.posiadaneSamochody.length;
-        return this.posiadaneSamochody.slice(Sprzedawca.i, Sprzedawca.i + 1);
-
+        // Sprzedawca.i = (Sprzedawca.i + 1) % this.posiadaneSamochody.length;
+        // return this.posiadaneSamochody.slice(Sprzedawca.i, Sprzedawca.i + 1);
+        return this.posiadaneSamochody;
     }
     posiadaneSamochody: Samochod[];
 
@@ -211,9 +215,9 @@ function tworzSprzedawcow(iloscSprzedawcow: number): Sprzedawca[] {
     return sprzedawcy
 }
 
-function tworzKupcow(arg0: number, parametrySzczegolowe: Parametry): Kupiec[] {
+function tworzKupcow(iloscKupcow: number, parametrySzczegolowe: Parametry): Kupiec[] {
     let kupcy: Kupiec[] = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < iloscKupcow; i++) {
         kupcy[i] = new Kupiec(parametrySzczegolowe);
     }
     return kupcy;
