@@ -15,7 +15,7 @@ export function WynikWyszukiwan(props: { parametryOgolne: ParametryOgolne }) {
         <React.Fragment>
             {samochody.map((samochod) => {
                 return (
-                    <Accordion>
+                    <Accordion key={samochod.samochod.nazwa}>
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
                             aria-controls="panel1a-content"

@@ -22,7 +22,7 @@ export default function Review2(props: { parametryOgolne: ParametryOgolne }) {
                     {
                         Object.keys(props.parametryOgolne).map(
                             (key) => {
-                                return (<WartoscPriorytet parametr={(props.parametryOgolne as any)[key]} nazwa={key} />) //napewno mozna to zapisac/zrobić czytelniej/ładniej
+                                return (<WartoscPriorytet key={key} parametr={(props.parametryOgolne as any)[key]} nazwa={key} />) //napewno mozna to zapisac/zrobić czytelniej/ładniej
                             }
                         )
                     }

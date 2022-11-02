@@ -77,7 +77,7 @@ export function Formularz(props: { parametryOgolne: ParametryOgolne, set: React.
                 (parametrKey) => {
                     if (parametrKey != 'cena') {
                         return (
-                            <Parametr set={props.set} nazwa={parametrKey} parametryOgolne={props.parametryOgolne} />
+                            <Parametr key={parametrKey} set={props.set} nazwa={parametrKey} parametryOgolne={props.parametryOgolne} />
                         )
                     }
                 }
