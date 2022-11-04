@@ -18,6 +18,8 @@ import { CenaForm } from './Cena.Form';
 import { WynikWyszukiwan } from '../wyniki';
 import { Formularz } from './Formularz';
 import Review2 from './Review2';
+import { KreatorAgentow } from '../KreatorAgentow';
+import { SystemWieloagentowy } from '../../SystemWieloagentowy/SystemWieloAgentowy';
 
 
 const steps = ['Parametry', 'cena', 'Podsumowanie'];
@@ -52,6 +54,7 @@ export default function Checkout() {
     const [activeStep, setActiveStep] = React.useState(0);
     const [parametry, setData] = React.useState<Parametry>(new Parametry('nazwa'));
     const [parametryOgolne, setParametryOgolne] = React.useState<ParametryOgolne>(new ParametryOgolne())
+    const [systemWieloagentowy, setSystemWieloagentowy] = React.useState<SystemWieloagentowy>(new SystemWieloagentowy());
 
     const handleNext = () => {
         setActiveStep(activeStep + 1);
@@ -77,9 +80,12 @@ export default function Checkout() {
                     <Typography variant="h6" color="inherit" noWrap>
                         system wieloagentowy
                     </Typography>
+
                 </Toolbar>
             </AppBar>
+
             <Container component="main" maxWidth="lg" sx={{ mb: 4 }}>
+                <KreatorAgentow systemWieloagentowy={systemWieloagentowy} setSystemWieloagentowy={setSystemWieloagentowy} />
                 <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
                     <Typography component="h1" variant="h4" align="center">
                         Parametry pojazdu
@@ -94,7 +100,7 @@ export default function Checkout() {
                     <React.Fragment>
                         {activeStep === steps.length ? (
                             <React.Fragment>
-                                <WynikWyszukiwan parametryOgolne={parametryOgolne} />
+                                {/* <WynikWyszukiwan parametryOgolne={parametryOgolne} systemWieloagentowy={systemWieloagentowy} setSystemWieloagentowy={setSystemWieloagentowy} /> */}
                             </React.Fragment>
                         ) : (
                             <React.Fragment>
@@ -118,7 +124,7 @@ export default function Checkout() {
                     </React.Fragment>
                 </Paper>
             </Container>
-            <WynikWyszukiwan parametryOgolne={parametryOgolne} />
+            <WynikWyszukiwan parametryOgolne={parametryOgolne} systemWieloagentowy={systemWieloagentowy} setSystemWieloagentowy={setSystemWieloagentowy} />
             <Review2 parametryOgolne={parametryOgolne} />
         </ThemeProvider>
     );

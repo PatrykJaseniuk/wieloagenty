@@ -4,12 +4,12 @@ import React from "react";
 import { Parametry, ParametryOgolne, Samochod } from "../Data/data";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Review from "./checkout/Review";
-import { generujParametrySzczegolowe, wyszukaj } from "../SystemWieloagentowy/SystemWieloAgemtowy";
+import { generujParametrySzczegolowe, SystemWieloagentowy } from "../SystemWieloagentowy/SystemWieloAgentowy";
 
-export function WynikWyszukiwan(props: { parametryOgolne: ParametryOgolne }) {
+export function WynikWyszukiwan(props: { parametryOgolne: ParametryOgolne, systemWieloagentowy: SystemWieloagentowy, setSystemWieloagentowy: React.Dispatch<React.SetStateAction<SystemWieloagentowy>> }) {
 
-    let samochody = wyszukaj(props.parametryOgolne)
     let parametrySzczegolowe = generujParametrySzczegolowe(props.parametryOgolne)
+    let samochody = props.systemWieloagentowy.wyszukaj(parametrySzczegolowe)
 
     return (
         <React.Fragment>
@@ -29,7 +29,7 @@ export function WynikWyszukiwan(props: { parametryOgolne: ParametryOgolne }) {
                     </Accordion>
                 )
             })}
-            <Review data={parametrySzczegolowe} />
+            {/* <Review data={parametrySzczegolowe} /> */}
         </React.Fragment>
     )
 }
